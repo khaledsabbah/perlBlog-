@@ -1,0 +1,23 @@
+<h3 style="text-align: center;">	That's Where You compose your post :) </h3>
+<form  [% IF c.stash.post.p_title %] action="[% c.uri_for('/post/update') %]" [%ELSE%] action="[% c.uri_for('/post/save') %]" [%END%] method="post">
+	<div class="form-group row">
+		<label for="post" class="col-sm-2 form-control-label">Post Title</label>
+		<div class="col-sm-10">
+			[% IF c.stash.post.p_title %] 
+				<input type="hidden" name="p_id" value="[%post.p_id%]">
+			[% END %]
+			<input type="text" name="title" placeholder="Post title" [% IF c.stash.post.p_title %] value="[% c.stash.post.p_title %]" [% END %]>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="post" class="col-sm-2 form-control-label">Compose Your Post</label>
+		<div class="col-sm-10">
+			<textarea name="post" cols="8" rows="6" class="form-control" id="post" placeholder="Compose Your Post"> [% IF c.stash.post.p_title %] [% c.stash.post.p_content %] [% END %]</textarea>
+		</div>
+	</div>
+	<div class="form-group row">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" name="compose" value="publish" class="btn btn-secondary">[% IF c.stash.post.p_title %] Save [%ELSE%] Publish[%END%]</button>
+		</div>
+	</div>
+</form>

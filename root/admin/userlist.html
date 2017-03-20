@@ -1,0 +1,36 @@
+
+[% IF c.flash.success_msg %]
+        <div class="alert alert-success">
+          <ul>
+            <li>
+              [% c.flash.success_msg %]
+            </li>
+          </ul>
+            
+        </div>
+    [% END -%]
+
+
+[% FOREACH user IN c.stash.all  %]
+  [%IF user.role!="admin"%]  
+        <div class="panel panel-info col-sm-offset-2 col-sm-6">
+          <div class="panel-body col-sm-offset-2 col-sm-6">
+                [% user.email %]
+          </div>
+          <div class="col-sm-4" style="display: inline-block; margin-top: 1%; "> 
+              
+              <form class="form-inline right" style="float: right;"  method="post" action="/admin/remove">
+                  <input type="hidden" name="id" value="[%user.id%]">
+                  <button class="btn btn-danger" type="submit" name="remove">Delete</button>
+              </form>
+              <form class="form-inline" method="post" action="/admin/edit">
+                  <input type="hidden" name="id" value="[%user.id%]">
+                  <button class="btn btn-success" type="submit" name="edit" >Edit</button>
+              </form>
+              
+
+          </div>
+        </div>
+        <hr>
+  [% END %]
+[% END %]

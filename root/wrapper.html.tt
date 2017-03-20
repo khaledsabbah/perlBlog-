@@ -1,0 +1,7 @@
+[% IF no_wrapper;
+        content;
+    ELSE;
+        wrapper = wrapper || 'home/index.html';
+        content WRAPPER $wrapper;
+    END;
+-%]

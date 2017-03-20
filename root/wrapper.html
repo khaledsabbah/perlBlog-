@@ -1,0 +1,135 @@
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width ,initial-scale=1" >
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<style type="text/css" media="screen">
+		
+		nav{
+			border-radius: 0px;
+		}
+		footer{
+				position: relative;
+			    bottom: 0px;
+				text-align: center;
+			    font-size: x-large;
+			    font-style: initial;
+			    font-family: -webkit-pictograph;
+			    background-color: aquamarine;
+			    text-shadow: 2px 2px #949393;
+			    margin-top: 20%;
+			    /*margin-left: 40%;*/
+			    /*margin-top: 5%;*/
+		}
+		.carousel-indicators{
+			list-style: none;
+		}
+		#welcome{
+			    font-family: -webkit-pictograph;
+			    border: 1px;
+			    border-color: red;
+			    text-align: center;
+			    margin-bottom: 4%;
+			    text-shadow: 2px 2px #949393;
+		}
+		.header{
+			color: white;
+			background-color: #000;
+			font-size: 150%;
+			font-family: -webkit-pictograph;
+		}
+		.comment{
+			margin-top: 5px;
+		}
+
+	</style>
+
+</head>
+<body style="color:rgb(25, 126, 165)" >
+	
+	<nav class="navbar navbar-default bg-faded">
+		<a class="navbar-brand" href="#">LOGO</a>
+		<ul class="nav navbar-nav">
+			<li class="nav-item active">
+				<a class="nav-link" href="#">Docs <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Example</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Themes</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Blog</a>
+			</li>
+		</ul>
+		
+		<div class="dropdown navbar-form pull-right " >
+			  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			    <?php echo isset($_SESSION['user_id'])?$_SESSION['username']:'SignIn'; ?>
+			    <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			    
+			    <?php if(isset($_SESSION['user_id'])){?>
+			    <li><a href="compose.php">Compose</a></li>
+			    <li><a href="setting.php">Settings</a></li>
+			    <li role="separator" class="divider"></li>
+			    <li><a href="#">Others</a></li>
+			    <?php } ?>
+
+			    <li >
+		    		<form class="form-inline" method="post" action="logout.php">
+
+						<?php  if(isset($_SESSION['email'])){  ?>
+
+						<button style="width: 100%;" class="btn btn-primary" type="submit" name="logout" value="logout">LogOut</button>
+
+						<?php  }else{  ?>
+
+						<a href="signIn.php" style="width: 100%;" class="btn btn-primary" name="signin">SignIn</a>
+
+						<?php } ?>
+					</form>
+			    </li>
+			  </ul>
+		</div>
+		
+
+		<form class="form-inline navbar-form pull-right">
+			<input class="form-control" type="text" placeholder="Search">
+			<button class="btn btn-success-outline" type="submit">Search</button>
+		</form>
+	</nav>
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ul class="carousel-indicators" >
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+  </ul>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    
+    <div class="item active">
+      <img src="img/banner.png" alt="...">
+      <div class="carousel-caption">
+         banner Image
+      </div>
+    </div>
+      
+  </div>
+
+</div>
+
+
+
+<div class="container-fluid">	
+	<footer>
+		Instructed By ITI &  Done By Khaled
+	</footer>
+</div>
+<script src="./js/jquery-1.11.2.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+</body>
+</html>

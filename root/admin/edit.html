@@ -1,0 +1,48 @@
+<form action="[% c.uri_for('/admin/update') %]" method="post">
+			
+			<div class="form-group row">
+				<label for="Email" class="col-sm-2 form-control-label">Email</label>
+				<div class="col-sm-10">
+					<input type="hidden" name="id" value="[%c.stash.user.id%]">
+					<input type="email" name="email" class="form-control" id="Email" value="[%c.stash.user.email%]">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="Password" class="col-sm-2 form-control-label">Password</label>
+				<div class="col-sm-10">
+					<input type="password" name="password" class="form-control" id="Password" placeholder="currentPassword" ">
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="First Name" class="col-sm-2 form-control-label">First Name</label>
+				<div class="col-sm-10">
+					<input type="text"  name="firstname"class="form-control" id="First Name" value="[%c.stash.user.firstname%]">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="Last Name" class="col-sm-2 form-control-label">Last Name</label>
+				<div class="col-sm-10">
+					<input type="text" name="lastname" class="form-control" id="inputEmail3" value="[%c.stash.user.lastname%]">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputEmail3" class="col-sm-2 form-control-label">Gender</label>
+				<div class="col-sm-10">
+					<label class="radio-inline">
+		      			<input type="radio" name="gender" value="female" [%IF c.stash.user.gender=="female" %] checked="true" [% END %]>Female
+				    </label>
+				    <label class="radio-inline">
+				      	<input type="radio" name="gender" value="male" [%IF c.stash.user.gender=="male" %] checked="true" [% END %] >Male
+				    </label>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" name="update" class="btn btn-success"> Update</button>
+				</div>
+			</div>
+		</form>

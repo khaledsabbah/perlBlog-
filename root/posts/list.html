@@ -1,0 +1,24 @@
+
+[% FOREACH post IN c.stash.all  %]
+<div class="panel panel-default">
+    <div class="panel-heading"><p style="color: black; font-style:bold;">[% post.p_title %]</p></div>
+    <div class="panel-body">
+          [% post.p_content %]
+          <a style="color: #ff6688" href='[%c.uri_for("/post/view/"_ post.p_id )%]' title="view post">read more.....</a>
+    </div>
+    <div class="panel-footer " style="">
+    	[% IF ( c.user.id == post.u_id || c.user.role=='admin') %]
+    	<form class="form-inline right" style="float: right;"  method="post" action="/post/remove">
+			<input type="hidden" name="p_id" value="[%post.p_id%]">
+			<button class="btn btn-danger" type="submit" name="remove">Delete</button>
+		</form>
+    	<form class="form-inline" method="post" action="/post/edit">
+    		<input type="hidden" name="p_id" value="[%post.p_id%]">
+			<button class="btn btn-success" type="submit" name="edit" >Edit</button>
+		</form>
+		
+		[% END %]
+    </div>
+  </div>
+  <hr>
+  [% END %]

@@ -1,0 +1,90 @@
+<div class="panel panel-primary">
+   
+    <div class="panel-heading">[% post.p_title %]</div>
+   
+    <div class="panel-body">[% post.p_content %]</div>
+   
+    <div class="panel-footer " style="">
+    	[% IF ( c.user.id == post.u_id || c.user.role=='admin') %]
+    	<form class="form-inline right" style="float: right;"  method="post" action="/post/remove">
+			<input type="hidden" name="p_id" value="[%post.p_id%]">
+			<button class="btn btn-danger" type="submit" name="remove">Delete</button>
+		</form>
+    	<form class="form-inline" method="post" action="/post/edit">
+    		<input type="hidden" name="p_id" value="[%post.p_id%]">
+			<button class="btn btn-success" type="submit" name="edit" >Edit</button>
+		</form>
+		
+		[% END %]
+    </div>
+  </div>
+  <hr>
+<h3 style="text-align: center;" class="info">    comments of this post :) </h3>
+<hr>
+[% IF c.flash.error_msg -%]
+    <div class="alert alert-danger">
+      <ul>
+        <li>
+          [% c.flash.error_msg %]
+        </li>
+      </ul>
+        
+    </div>
+[% END -%]
+
+
+
+[% IF c.flash.success_msg -%]
+    <div class="alert alert-success">
+      <ul>
+        <li>
+          [% c.flash.success_msg %]
+        </li>
+      </ul>
+        
+    </div>
+[% END -%]
+
+  <form [% IF c.stash.comment.c_content %] action="[% c.uri_for('/comment/update') %]" [%ELSE%] action="[% c.uri_for('/comment/save') %]" [%END%] method="post">
+
+    <div class="form-group row">
+        <label for="post" class="col-sm-2 form-control-label">Add Your Comment</label>
+        <div class="col-sm-6">
+            <input type="hidden" name="p_id" value="[%post.p_id%]">
+            <input type="hidden" name="u_id" value="[%c.user.id%]">
+            [% IF c.stash.comment.c_content %]
+            <input type="hidden" name="c_id" value="[%c.stash.comment.c_id%]">
+            [%END%]
+            <textarea name="c_content" cols="8" rows="2" class="form-control" id="comment" placeholder="Add Your Post"> [% IF c.stash.comment.c_content %] [% c.stash.comment.c_content %] [% END %]</textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" name="save" value="add" class="btn btn-success">[% IF c.stash.comment.c_content %] Save [%ELSE%]Add Comment[%END%]</button>
+        </div>
+    </div>
+</form>
+
+[% FOREACH comment IN c.stash.comments  %]
+<div class="panel panel-info col-sm-offset-2 col-sm-6">
+    <div class="panel-body col-sm-offset-2 col-sm-6">
+          [% comment.c_content %]
+    </div>
+    <div class="col-sm-4" style="display: inline-block; margin-top: 1%; "> 
+        [% IF ( c.user.id == comment.u_id || c.user.role=='admin') %]
+        <form class="form-inline right" style="float: right;"  method="post" action="/comment/remove">
+            <input type="hidden" name="c_id" value="[%comment.c_id%]">
+            <input type="hidden" name="p_id" value="[%post.p_id%]">
+            <button class="btn btn-danger" type="submit" name="remove">Delete</button>
+        </form>
+        <form class="form-inline" method="post" action="/comment/edit">
+            <input type="hidden" name="c_id" value="[%comment.c_id%]">
+            <input type="hidden" name="p_id" value="[%post.p_id%]">
+            <button class="btn btn-success" type="submit" name="edit" >Edit</button>
+        </form>
+        
+        [% END %]
+    </div>
+  </div>
+  <hr>
+  [% END %]

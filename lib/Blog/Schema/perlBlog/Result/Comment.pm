@@ -47,17 +47,17 @@ __PACKAGE__->table("comments");
 =head2 p_id
 
   data_type: 'integer'
-  is_foreign_key: 1
   is_nullable: 0
 
 =head2 u_id
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 0
 
 =head2 c_content
 
-  data_type: 'integer'
+  data_type: 'text'
   is_nullable: 0
 
 =head2 created_at
@@ -78,9 +78,9 @@ __PACKAGE__->add_columns(
   "p_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "u_id",
-  { data_type => "integer", is_nullable => 0 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "c_content",
-  { data_type => "integer", is_nullable => 0 },
+  { data_type => "text", is_nullable => 0 },
   "created_at",
   { data_type => "integer", is_nullable => 0 },
   "updated_at",
@@ -101,24 +101,31 @@ __PACKAGE__->set_primary_key("c_id");
 
 =head1 RELATIONS
 
-=head2 p
+=head2 u
 
 Type: belongs_to
 
-Related object: L<Blog::Schema::perlBlog::Result::Post>
+Related object: L<Blog::Schema::perlBlog::Result::User>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "p",
+  "users",
+  "Blog::Schema::perlBlog::Result::User",
+  { id => "u_id" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+);
+
+__PACKAGE__->belongs_to(
+  "posts",
   "Blog::Schema::perlBlog::Result::Post",
-  { p_id => "p_id" },
+  { id => "p_id" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-18 18:47:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yWK8mYo8Lqr1GahIqwZN3Q
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-24 15:44:02
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4qKqSTxVJfhZCvFGFRa2DQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

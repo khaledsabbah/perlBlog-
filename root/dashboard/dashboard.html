@@ -84,7 +84,9 @@
 
   </div>
   <div id="posts" class="tab-pane fade">
+  	[%IF c.stash.posts > 0 %]
     [% FOREACH post IN c.stash.posts  %]
+    [% loop.count %]
 		<div class="panel panel-default">
 		    <div class="panel-heading"><p style="color: black; font-style:bold;">[% post.p_title %]</p></div>
 		    <div class="panel-body">
@@ -107,5 +109,9 @@
 		  </div>
 		  <hr>
   	[% END %]
+  	[%ELSE%]
+
+  	<div class="info"> No posts for now !! <a href='[%c.uri_for("/post/create/")%]'  style="color: red" title="">Go here</a> to compose your post</div>
+  	[%END%]
   </div>
 </div>

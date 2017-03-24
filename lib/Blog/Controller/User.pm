@@ -32,8 +32,12 @@ sub index :Path :Args(0) {
 }
 sub logOut :Path("logOut") :Args(0) {
     my ( $self, $c ) = @_;
-    $c->logout();
-    $c->response->redirect("/");
+    if(!$c->user_exists){
+    	$c->response->redirect($c->uri_for("/user/"));
+	}else{
+	    $c->logout();
+	    $c->response->redirect("/");
+	}
 }
 
 sub logIn :Path('logIn') :Args(0) {
@@ -62,6 +66,22 @@ sub logIn :Path('logIn') :Args(0) {
 sub signUp :Path('signUp') :Args(0) {
 	my ( $self, $c ) = @_;
 	$c->stash(template => "user/signUp.html");	
+}
+
+sub profile :Path('profile') :Args(1) {
+	my ( $self, $c , $u_id ) = @_;
+	if(!$c->user_exists){
+    	$c->response->redirect($c->uri_for("/user/"));
+	}else{
+		my $userprofile = $c->model('DB::User')->find({id=>$u_id});
+		my @post = $c->model('DB::Post')->search({u_id=>$u_id });
+		# my $count = @post;
+		# $c->response->body($post[5]->p_content);
+		# my $post = $c->model('DB::Post')->search({u_id=>$u_id });
+		$c->stash(posts => @post);
+		$c->stash(userprofile => $userprofile);
+		$c->stash(template => "user/profile.html");
+	}
 }
 
 sub register :Path('register') :Args(0) {
@@ -109,29 +129,32 @@ sub register :Path('register') :Args(0) {
 
 sub update :Path('update') :Args(0) {
     my ( $self, $c ) = @_;
-    if($c->user->role=='admin'){
+    if(!$c->user_exists){
+    $c->response->redirect($c->uri_for("/user/"));
+	}else{
+	    if($c->user->role=='admin'){
 
-    		my $firstname = $c->request->params->{firstname};
-    		my $lastname = $c->request->params->{lastname};
-    		my $email = $c->request->params->{email};
-    		my $gender = $c->request->params->{gender};
+	    		my $firstname = $c->request->params->{firstname};
+	    		my $lastname = $c->request->params->{lastname};
+	    		my $email = $c->request->params->{email};
+	    		my $gender = $c->request->params->{gender};
 
-    		my $user = $c->model('DB::User')->find({id=>$c->request->params->{id}});
-    		$user->update({
-    			firstname=>$firstname , 
-    			lastname=>$lastname , 
-    			email=>$email , 
-    			gender=>$gender , 
-    			});
-		    $c->stash(user =>$user) ;
-		    $c->flash->{success_msg}="user updated successfully!!";
-		    $c->response->redirect("/dashboard/");
-		    return ;
-    	}else{
-    		$c->flash->{error_msg}="this is awrong place to go !!!";
-    		$c->response->redirect("/dashboard/");	
-    	}
-    
+	    		my $user = $c->model('DB::User')->find({id=>$c->request->params->{id}});
+	    		$user->update({
+	    			firstname=>$firstname , 
+	    			lastname=>$lastname , 
+	    			email=>$email , 
+	    			gender=>$gender , 
+	    			});
+			    $c->stash(user =>$user) ;
+			    $c->flash->{success_msg}="user updated successfully!!";
+			    $c->response->redirect("/dashboard/");
+			    return ;
+	    	}else{
+	    		$c->flash->{error_msg}="this is awrong place to go !!!";
+	    		$c->response->redirect("/dashboard/");	
+	    	}
+	}    
 }
 
 

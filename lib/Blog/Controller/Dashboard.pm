@@ -24,16 +24,16 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     # my $id = $c->session->{user}->id;
-    if($c->user->id ){
+    if(!$c->user_exists ){
+        $c->response->redirect($c->uri_for("/user/"));
+    }else{
         my $posts = $c->model('DB::Post')->find({u_id=>$c->user->id});
         $c->stash(posts=>$posts);    
     	$c->stash(template=>'dashboard/dashboard.html');	
-    }else{
-    	$c->response->redirect($c->uri_for("/user/"));
     }
 
     
-    # $c->response->body($c->user->id);
+    
     # my $admins_count = $c->model('DB::User')->search(
     #     {
     #         email => $c->stash{email};

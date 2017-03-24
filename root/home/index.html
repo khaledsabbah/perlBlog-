@@ -48,6 +48,17 @@
 			font-family: initial;
 			font-weight: bold;
 		}
+		.link{
+		    text-align: center;
+		    font-style: unset;
+		    font-family: initial;
+		    font-weight: bold;
+		    color: #541616;
+		}
+		.link:hover{
+			 color: #413119;
+			 background-color: #DAD8D8	
+		}
 
 	</style>
 
@@ -55,19 +66,10 @@
 <body style="color:rgb(25, 126, 165)" >
 	
 	<nav class="navbar navbar-default bg-faded">
-		<a class="navbar-brand" href="#">LOGO</a>
+		<a class="navbar-brand info" href="[%c.uri_for('/post/') %]">PERL</a>
 		<ul class="nav navbar-nav">
-			<li class="nav-item active">
-				<a class="nav-link" href="#">Docs <span class="sr-only">(current)</span></a>
-			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Example</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Themes</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="[%c.uri_for('/post/') %]">Index</a>
+				<a class="nav-link" href="[%c.uri_for('/post/') %]">home</a>
 			</li>
 		</ul>
 		

@@ -32,7 +32,7 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     # Hello World
-    $c->stash(template => "posts/list.html");
+    $c->response->redirect($c->uri_for("/post"));	
 }
 
 =head2 default

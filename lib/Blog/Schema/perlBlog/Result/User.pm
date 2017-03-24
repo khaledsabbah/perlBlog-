@@ -153,6 +153,21 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
+=head2 comments
+
+Type: has_many
+
+Related object: L<Blog::Schema::perlBlog::Result::Comment>
+
+=cut
+
+__PACKAGE__->has_many(
+  "comments",
+  "Blog::Schema::perlBlog::Result::Comment",
+  { "foreign.u_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 posts
 
 Type: has_many
@@ -169,8 +184,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-18 18:47:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:t5clyAXjVWmlULrkDvfR1g
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-03-24 15:44:02
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l6p2oEA1E+D9ZAiM/6l9LA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

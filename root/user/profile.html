@@ -1,4 +1,21 @@
-
+<div class="row link">
+	<div class="col-sm-offset-1 col-sm-3" >
+		User Name:
+	</div>
+	<div class="col-sm-offset-1 col-sm-6 " >
+		<span style="float: left">
+			[%c.stash.userprofile.firstname%]&nbsp;&nbsp;[%c.stash.userprofile.lastname%]
+		</span>
+	</div>
+	<div class="col-sm-offset-1 col-sm-3" >
+		User Email:
+	</div>
+	<div class="col-sm-offset-1 col-sm-6 " >
+		<span style="float: left">
+			[%c.stash.userprofile.email%]
+		</span>
+	</div>
+</div>
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#posts" class="link ">[% c.stash.userprofile.firstname%]'s Posts</a></li>
 </ul>

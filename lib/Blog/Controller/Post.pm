@@ -88,10 +88,11 @@ sub view :Path('view') :Args(1) {
  #    	$c->response->redirect($c->uri_for("/user/"));
 	# }else{
 		my $post = $c->model('DB::Post')->find({p_id=>$p_id});
-		my $comments = $c->model('DB::Comment')->find({p_id=>$p_id });
-		# $c->response->body($comments[0]->users->email);
+		my @comments = $c->model('DB::Comment')->search({p_id=>$p_id });
+		
 		$c->stash(post => $post);
-		$c->stash(comments => $comments);
+		$c->stash->{comments} = \@comments;
+		# $c->response->body($c->stash->comments->c_content);
 		$c->stash(template => "posts/view.html");
 	# }
 }
@@ -127,13 +128,19 @@ sub update :Path('update') :Args(0) {
 
 sub remove :Path('remove') :Args(0) {
 	my ( $self, $c ) = @_;
+	my $comment;
 	if(!$c->user_exists){
     	$c->response->redirect($c->uri_for("/user/"));
 	}else{
 		my $p_id = $c->request->params->{p_id};
 		my $post = $c->model('DB::Post')->find({p_id=>$p_id});
-		my $comments = $c->model('DB::Comment')->find({p_id=>$p_id});
-		$comments->delete;
+		my @comments = $c->model('DB::Comment')->search({p_id=>$p_id});
+		my $count = @comments;
+		if($count > 0){
+			foreach $comment (@comments){
+			    $comment->delete;
+			}	
+		}
 		$post->delete;
 		# $c->response->body($post->p_content);
 		# my $post = $c->model('DB::Post')->find({p_id=>$p_id});

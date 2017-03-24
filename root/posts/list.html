@@ -1,7 +1,21 @@
 
 [% FOREACH post IN c.stash.all  %]
 <div class="panel panel-default">
-    <div class="panel-heading"><p style="color: black; font-style:bold;">[% post.p_title %]</p></div>
+    <div class="panel-heading" >
+    <span>Published By :  &nbsp;&nbsp;
+    [% IF post.users.role=='admin' %]
+        <span class="link">Admin</span>
+    [%ELSE%]
+      <a href="[% c.uri_for('/user/profile/' _ post.users.id) %]" class="link">
+        [% post.users.firstname %]&nbsp;[% post.users.lastname %]
+      </a>
+    [%END%]
+    </span>   
+    <span class="link" style="float: right;">
+      Created at :&nbsp;&nbsp;&nbsp; [% post.created_at %]
+    </span>
+    </div>
+   
     <div class="panel-body">
           [% post.p_content %]
           <a style="color: #ff6688" href='[%c.uri_for("/post/view/"_ post.p_id )%]' title="view post">read more.....</a>

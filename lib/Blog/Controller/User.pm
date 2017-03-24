@@ -78,7 +78,7 @@ sub profile :Path('profile') :Args(1) {
 		# my $count = @post;
 		# $c->response->body($post[5]->p_content);
 		# my $post = $c->model('DB::Post')->search({u_id=>$u_id });
-		$c->stash(posts => @post);
+		$c->stash->{posts} = \@post;
 		$c->stash(userprofile => $userprofile);
 		$c->stash(template => "user/profile.html");
 	}

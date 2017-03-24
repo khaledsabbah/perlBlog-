@@ -15,6 +15,7 @@ __PACKAGE__->config(
     }
 );
 
+
 =head1 NAME
 
 Blog::Model::DB - Catalyst DBIC Schema Model

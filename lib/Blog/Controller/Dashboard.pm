@@ -27,8 +27,10 @@ sub index :Path :Args(0) {
     if(!$c->user_exists ){
         $c->response->redirect($c->uri_for("/user/"));
     }else{
-        my $posts = $c->model('DB::Post')->find({u_id=>$c->user->id});
-        $c->stash(posts=>$posts);    
+        my @posts = $c->model('DB::Post')->search({u_id=>$c->user->id});
+        # my $count = @posts;
+        # $c->response->body($count);
+        $c->stash->{posts}= \@posts;
     	$c->stash(template=>'dashboard/dashboard.html');	
     }
 

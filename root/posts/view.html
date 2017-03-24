@@ -76,13 +76,18 @@
 </form>
 
 [%END%]
+
 [% FOREACH comment IN c.stash.comments  %]
 <div class="panel panel-info col-sm-offset-2 col-sm-6">
 
     <div class="panel-heading" >
     <span>commented By :  &nbsp;&nbsp;
+      [% IF comment.users.role=='admin' %]
+        <span class="link">Admin</span>
+      [%ELSE%]
       <a href="[% c.uri_for('/user/profile/' _ comment.users.id) %]" class="link">
         [% comment.users.firstname%]&nbsp;[% comment.users.lastname%]
+        [%END%]
       </a>
     </span>   
     <span class="link" style="float: right;">
